@@ -14,11 +14,11 @@ A command-line tool to parse and manipulate ELF binaries.
 ```
 
 ### Commands
-`list <binary>` List all sections in the ELF binary
-`read <binary> <section>` Read the contents of a section
-`write <binary> <section> <data>` Modify a section with the given data
-`delete <binary> <section>` Delete a section from the ELF binary
-`version` Display the version information
+- `list <binary>` List all sections in the ELF binary
+- `read <binary> <section>` Read the contents of a section
+- `write <binary> <section> <data>` Modify a section with the given data
+- `delete <binary> <section>` Delete a section from the ELF binary
+- `version` Display the version information
 
 ## Dependencies
 - [ELFIO](https://github.com/serge1/ELFIO)
@@ -46,7 +46,7 @@ make
 - Add hex presentation like xxd
 
 ## :snowman: Author
-Eray Öztürk ([@diffstorm](https://github.com/diffstorm))
+Eray Ã–ztÃ¼rk ([@diffstorm](https://github.com/diffstorm))
 
 ## LICENSE
 This project is licensed under the [MIT License](LICENSE) - see the LICENSE file for details.
