@@ -9,7 +9,10 @@
 #include "Logger.h"
 #include <iostream>
 #include <fstream>
+#include <iomanip>
+#include <sstream>
 #include <vector>
+#include <cctype>
 
 ElfParser::ElfParser(const std::string &binaryPath) : binaryPath(binaryPath)
 {
@@ -23,7 +26,7 @@ void ElfParser::ListSections() const
 {
     for(const auto &section : reader.sections)
     {
-        Logger::Info("Section: {} ({} bytes)", section->get_name(), section->get_size());
+        Logger::Info(fmt::format("Section: {} ({} bytes)", section->get_name(), section->get_size()));
     }
 }
 
@@ -36,9 +39,54 @@ void ElfParser::ReadSection(const std::string &sectionName) const
         throw std::runtime_error("Section not found: " + sectionName);
     }
 
-    Logger::Info("Reading section: {}", sectionName);
-    std::cout.write(section->get_data(), section->get_size());
-    std::cout << std::endl;
+    Logger::Info(fmt::format("Reading section: {}", sectionName));
+    const char *data = section->get_data();
+    std::size_t size = section->get_size();
+
+    for(std::size_t i = 0; i < size; i += 16)
+    {
+        // Print offset
+        std::printf("%08zx: ", i);
+
+        // Print hex bytes
+        for(std::size_t j = 0; j < 16; ++j)
+        {
+            if(i + j < size)
+            {
+                std::printf("%02x ", static_cast<unsigned char>(data[i + j]));
+            }
+            else
+            {
+                std::printf("   ");
+            }
+        }
+
+        // Print ASCII characters
+        std::printf(" ");
+
+        for(std::size_t j = 0; j < 16; ++j)
+        {
+            if(i + j < size)
+            {
+                unsigned char c = static_cast<unsigned char>(data[i + j]);
+
+                if(std::isprint(c))
+                {
+                    std::printf("%c", c);
+                }
+                else
+                {
+                    std::printf(".");
+                }
+            }
+            else
+            {
+                std::printf(" ");
+            }
+        }
+
+        std::printf("\n");
+    }
 }
 
 void ElfParser::ModifySection(const std::string &sectionName, const std::string &data)
@@ -58,7 +106,7 @@ void ElfParser::ModifySection(const std::string &sectionName, const std::string 
     std::ofstream outFile(binaryPath, std::ios::binary | std::ios::in | std::ios::out);
     outFile.seekp(section->get_offset());
     outFile.write(data.c_str(), data.size());
-    Logger::Success("Section {} modified successfully", sectionName);
+    Logger::Success(fmt::format("Section {} modified successfully", sectionName));
 }
 
 void ElfParser::DeleteSection(const std::string &sectionName)
