@@ -2,6 +2,8 @@
 
 A command-line tool to parse and manipulate ELF binaries.
 
+[![CI](https://github.com/diffstorm/elf-parser/actions/workflows/c-cpp.yml/badge.svg)](https://github.com/diffstorm/elf-parser/actions/workflows/c-cpp.yml)
+
 ## Features
 - List sections in an ELF binary
 - Read contents of a specific section
