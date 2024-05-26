@@ -1,8 +1,10 @@
 # ELF Parser
 
-A command-line tool to parse and manipulate ELF binaries.
+[![Build Status](https://github.com/diffstorm/elf-parser/actions/workflows/c-cpp.yml/badge.svg)](https://github.com/diffstorm/elf-parser/actions)
+[![License](https://img.shields.io/github/license/diffstorm/elf-parser)](https://github.com/diffstorm/elf-parser/blob/main/LICENSE)
+[![Language](https://img.shields.io/github/languages/top/diffstorm/elf-parser)](https://github.com/diffstorm/elf-parser)
 
-[![CI](https://github.com/diffstorm/elf-parser/actions/workflows/c-cpp.yml/badge.svg)](https://github.com/diffstorm/elf-parser/actions/workflows/c-cpp.yml)
+A command-line tool to parse and manipulate ELF binaries.
 
 ## Features
 - List sections in an ELF binary
